@@ -80,13 +80,13 @@ class Helpers {
 
 		/** Remove www. */
 		$url_parts = parse_url( $url );
-		$domain = $url_parts['scheme'] . '://' . preg_replace( '/^www\./', '', $url_parts['host'] ) . ( ! empty( $url_parts['port'] ) ? ':' . $url_parts['port'] : '' );
+		$domain = preg_replace( '/^www\./', '', $url_parts['host'] ) . ( ! empty( $url_parts['port'] ) ? ':' . $url_parts['port'] : '' );
 
 		/** Add directory path if needed **/
 		if ( $path && isset( $url_parts['path'] ) )
 			$domain .= $url_parts['path'];
 
-		return sanitize_url( $domain );
+		return sanitize_url( $url_parts['scheme'] . '://' . $domain );
 
 	}
 
